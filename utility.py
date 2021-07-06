@@ -69,6 +69,7 @@ class Catr():
     def evaluate(self,image_path, model_name):
         if os.path.exists(model_name+'.csv'):
             df = pd.read_csv(model_name+'.csv')
+            df = df.drop(columns=['Unnamed: 0'])
         else:
             df = pd.DataFrame(columns=['Captions', 'Seed_Value'])
         seed_value = os.path.basename(image_path)
@@ -101,6 +102,6 @@ class Catr():
 """
 if __name__ == '__main__':
     catr = Catr()
-    output = catr.evaluate('2.jpg','car')
+    output = catr.evaluate('29.jpg','car')
     print(output)
 """
