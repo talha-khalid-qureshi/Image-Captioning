@@ -8,8 +8,8 @@ class TextSimilarity:
     self.model = SentenceTransformer('paraphrase-MiniLM-L12-v2')
     df = pd.read_csv(data_path)
     self.captions = df['Captions']
-    self.seed_value = df['Seed']
-    self.embeddings1 = self.model.encode(captions, convert_to_tensor=True)
+    self.seed_value = df['Seed_Value']
+    self.embeddings1 = self.model.encode(self.captions, convert_to_tensor=True).cpu()
   
   # def make_embeddings(self,data_path):
   #   df = pd.read_csv(data_path)
@@ -18,7 +18,7 @@ class TextSimilarity:
   #   return embeddings1
 
   def find_similarity(self, text,threshold=0.40):
-    embeddings2 = seld.encode([text], convert_to_tensor = True)
+    embeddings2 = self.model.encode([text], convert_to_tensor = True).cpu()
     cosine_scores = util.pytorch_cos_sim(self.embeddings1, embeddings2)
     # For All Values
     # sorted_index = tf.argsort(cosine_scores.flatten().tolist()).numpy()[::-1]
@@ -27,5 +27,5 @@ class TextSimilarity:
     return self.captions[sorted_index].tolist(), self.seed_value[sorted_index].tolist()
 
 if __name__ == '__main__':
-  ts = TextSimilarity(data_path = 'image_captions.csv')
-  ts.find_similarity('Input Text to Match', threshold=0.40)
+  ts = TextSimilarity(data_path = 'faces.csv')
+  print(ts.find_similarity('Man with smily face', threshold=0.40))
