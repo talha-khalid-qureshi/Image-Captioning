@@ -1,4 +1,4 @@
-**CA⫶TR**: Image Captioning with Transformers
+**CATR**: Image Captioning with Transformers
 ========
 PyTorch training code and pretrained models for **CATR** (**CA**ption **TR**ansformer).
 
@@ -8,14 +8,6 @@ to load model with pretrained weights simply do:
 model = torch.hub.load('saahiluppal/catr', 'v3', pretrained=True)  # you can choose between v1, v2 and v3
 ```
 ### Samples:
-
-<p align="center">
-  <img src=".github/cake.png" />
-  <img src=".github/girl.png" />
-  <img src=".github/office.png" />
-  <img src=".github/horse.png" />
-  <img src=".github/airplane.png" />
-</p>
 
 All these images has been annotated by CATR.
 
@@ -38,25 +30,6 @@ $ pip install -r requirements.txt
 ```
 That's it, should be good to train and test caption models.
 
-## Data preparation
-
-Download and extract COCO 2017 train and val images with annotations from
-[http://cocodataset.org](http://cocodataset.org/#download).
-We expect the directory structure to be the following:
-```
-path/to/coco/
-  annotations/  # annotation json files
-  train2017/    # train images
-  val2017/      # val images
-```
-
-## Training
-Tweak the hyperparameters from <a href='https://github.com/saahiluppal/catr/blob/master/configuration.py'>configuration</a> file.
-
-To train baseline CATR on a single GPU for 30 epochs run:
-```
-$ python main.py
-```
 We train CATR with AdamW setting learning rate in the transformer to 1e-4 and 1e-5 in the backbone.
 Horizontal flips, scales an crops are used for augmentation.
 Images are rescaled to have max size 299.
@@ -67,6 +40,3 @@ To test CATR with your own images.
 ```
 $ python predict.py --path /path/to/image --v v2  // You can choose between v1, v2, v3 [default is v3]
 ```
-
-# License
-CATR is released under the Apache 2.0 license. Please see the [LICENSE](LICENSE) file for more information.
